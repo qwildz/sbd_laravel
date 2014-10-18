@@ -15,3 +15,18 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::get('mail', function()
+{
+	Mail::send('hello', array(), function($message)
+	{
+		$message->from('no-reply@packerplan.me', 'PackerPlan');
+		$message->to('resnarizki29@gmail.com');
+	});
+});
+
+Route::post('inboundmail', function()
+{
+	$data = Input::get('mandrill_events');
+	File::append('test.txt', $data);
+});
